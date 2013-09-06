@@ -57,6 +57,11 @@ class Library
   		@library.count
   	end
 
+  	def checked_out?(book)
+  		@checked_out.key?(book)
+  	end
+
+
 end
 
 me = User.new("Joe")
