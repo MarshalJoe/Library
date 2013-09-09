@@ -2,35 +2,38 @@
 
 
 class User
-    attr_accessor :name
-    attr_accessor :books_checked_out
+    attr_accessor :books_out, :name
 	
 	def initialize(name)
 		@name = name
-		@books_checked_out = []
+		@books_out = []
 	end
 
+
+=begin
+	def books_checked_out(library)
+		library.
+	end
+=end
     
 
 end
 
 class Book
-  	attr_accessor :checked_out_length, :status, :borrower
+  	attr_accessor :checked_out_length, :borrower, :title
 
   	def initialize(author, title, description)
   		@author = author
   		@title = title
   		@description = description
-  		# @status = "available"
   		@borrower = nil
   	end
-  	def title
-  		@title
-  	end
+
 
 end
 
 class Library
+    attr_accessor :library, :checked_out
 
   	def initialize
   		@library = []
@@ -39,11 +42,13 @@ class Library
 
   	def check_out(book, user)
     	
-    	if @library.include?(book) # && book.status == "available"
+    	if
+        @library.include?(book)
     		 @library.delete(book)
     		 @checked_out[book.title] = user
-    		#book.borrower = user
-    		#book.status = "checked out"
+         user.books_out << book
+         book.borrower = user.name
+
     	else
     		"I'm sorry, #{book} is not available"	
     	end
@@ -70,14 +75,23 @@ puts "Book 1 title: #{book1.title}"
 
 my_library = Library.new
 my_library.add_book(book1)
-puts "Library book count: #{my_library.book_count}"
+#puts "Library book count: #{my_library.book_count}"
 
-my_library.check_out("Shaman", "me")
+puts me.inspect
+puts ""
+puts my_library.inspect
+my_library.check_out(book1, me)
+puts ""
+puts ""
+puts me.inspect
+puts ""
+puts my_library.inspect
 
 checked_out = my_library.checked_out?("Shaman")
 puts "Is 'Shaman' checked out? #{checked_out}"
 
-puts "#{me.name} has #{me.books_checked_out.count} books checked out"
 
-puts "#{me.name}'s first book is #{me.books_checked_out.first.title}"
+puts "#{me.name} has #{me.books_out.count} books checked out"
+
+puts "#{me.name}'s first book is #{me.books_out.first.title}"
 
