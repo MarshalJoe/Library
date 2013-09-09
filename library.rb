@@ -37,17 +37,17 @@ class Library
 
   	def initialize
   		@library = []
-  		@checked_out = {}
+  		@checked_out = []
   	end
 
   	def check_out(book, user)
     	
-    	if
-        @library.include?(book)
-    		 @library.delete(book)
-    		 @checked_out[book.title] = user
+    	if @library.include?(book)
+    		 
+         @library.delete(book)
          user.books_out << book
          book.borrower = user.name
+         @checked_out  << book
 
     	else
     		"I'm sorry, #{book} is not available"	
@@ -63,7 +63,7 @@ class Library
   	end
 
   	def checked_out?(book)
-  		@checked_out.key?(book)
+  		@checked_out.include?(book)
   	end
 
 
@@ -87,11 +87,11 @@ puts me.inspect
 puts ""
 puts my_library.inspect
 
-checked_out = my_library.checked_out?("Shaman")
-puts "Is 'Shaman' checked out? #{checked_out}"
+checked_out = my_library.checked_out?(book1)
+puts "Is #{book1.title} checked out? #{checked_out}"
 
 
-puts "#{me.name} has #{me.books_out.count} books checked out"
+puts "#{me.name} has #{me.books_out.count} book(s) checked out"
 
 puts "#{me.name}'s first book is #{me.books_out.first.title}"
 
